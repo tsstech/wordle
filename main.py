@@ -1,5 +1,5 @@
 import pygame, random
-import box_class
+import box_class, func
 
 ############# GAME SETUP #################
  
@@ -60,3 +60,18 @@ guessed = False
 ## holds indexes for guesses variable
 currentWord = 0
 currentLetter = 0
+
+
+
+########## GAMELOOP ##########
+while not guessed or attempts < 6:
+
+    #### drawing objects onto screen
+    screen.fill("#ffffff")
+    func.drawGuesses(screen,guesses)
+    pygame.display.update()
+
+
+
+
+
