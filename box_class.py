@@ -1,7 +1,7 @@
 import pygame
 
-class box:
-    def __init__(self,width,height,x,y):
+class Box:
+    def __init__(self,x,y,width,height):
         self.width = width
         self.height = height
         self.x = x
@@ -14,14 +14,14 @@ class box:
 
     ## Changes color based on status
     def changeColor(self):
-        if status == "empty":
+        if self.status == "empty":
             self.color = "#e8e8e8"
-        elif status == "correct":
+        elif self.status == "correct":
             self.color = "#00ff00"
-        elif status == "partial":
+        elif self.status == "partial":
             self.color = "#ffa500"
         else:
-            self.color = "#ff0000"
+            self.color = "#575757"
 
 
     ## Changes status
@@ -41,7 +41,7 @@ class box:
         font = pygame.font.Font(None,36)    ## create font object
         textSurface = font.render(self.letter,True,(255,255,255))   ## Render the text
         textRect = textSurface.get_rect()   ## Get rect object for text
-        text_rect.center = self.rect.center ## Center text in the box
+        textRect.center = self.rect.center ## Center text in the box
 
         ## Draw text & box
         pygame.draw.rect(screen, self.color, self.rect)
@@ -50,5 +50,6 @@ class box:
 
     ## Updates letter
     def writeLetter(self,letter):
-        self.letter = letter
+        if letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            self.letter = letter.upper()
 
