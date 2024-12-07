@@ -16,7 +16,7 @@ pygame.display.set_caption("Wordle")
 ######### CREATING BASIC VARIABLES ########
 
 ## generate a random word
-word = random.choice(["hello","great","santa"])
+word = random.choice(["HELLO","GREAT","SANTA"])
 
 guesses = [[box_class.Box(55, 100, 50, 50),
             box_class.Box(115, 100, 50, 50),
@@ -64,13 +64,56 @@ currentLetter = 0
 
 
 ########## GAMELOOP ##########
-while not guessed or attempts < 6:
+while not guessed and attempts < 6:
 
+    #### User controls ####
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            ## If a letter is clicked
+            if event.unicode in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+                guesses[currentWord][currentLetter].writeLetter(event.unicode)
+                if currentLetter < 4:
+                    currentLetter += 1
+                
+            ## If backspace is clicked
+            if event.key == pygame.K_BACKSPACE:
+                ## if it is first 4 letters
+                if currentLetter > 0 and currentLetter < 4:
+                    currentLetter -= 1
+                    guesses[currentWord][currentLetter].deleteLetter()
+
+                ## if it is last letter
+                elif currentLetter == 4:
+                    ## if box is empty, move to previous box and empty it
+                    if guesses[currentWord][currentLetter].letter == "":
+                        currentLetter -= 1
+                        guesses[currentWord][currentLetter].deleteLetter()
+                    ## if box has a letter, just empty box and stay on box
+                    else:
+                        guesses[currentWord][currentLetter].deleteLetter()
+
+            if event.key == pygame.K_RETURN:
+                ## if all letters in word are guessed
+                if currentLetter == 4 and guesses[currentWord][currentLetter].letter != "":
+                    attempts += 1
+
+                    ## check & change status of letters
+                    for ind,letter in enumerate(guesses[currentWord]):
+                        letter.status = func.checkStatus(ind,letter.letter,word)
+                        letter.changeColor()
+                        
+                    guessed = func.checkIfCorrect(guesses[currentWord],word)
+
+                    ## resetting index variables
+                    currentWord += 1
+                    currentLetter = 0
+                    
     #### drawing objects onto screen
     screen.fill("#ffffff")
     func.drawGuesses(screen,guesses)
     pygame.display.update()
-
 
 
 

@@ -23,11 +23,6 @@ class Box:
         else:
             self.color = "#575757"
 
-
-    ## Changes status
-    def changeStatus(self,status):
-        self.status = status
-
         
     ## Deletes letter
     def deleteLetter(self):
@@ -50,6 +45,5 @@ class Box:
 
     ## Updates letter
     def writeLetter(self,letter):
-        if letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
-            self.letter = letter.upper()
+        self.letter = letter.upper()
 
