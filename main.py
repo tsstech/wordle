@@ -112,6 +112,7 @@ while not win and attempts < 6:
                     
     #### drawing objects onto screen
     screen.fill("#ffffff")
+    func.drawWordle(screen)
     func.drawGuesses(screen,guesses)
     pygame.display.update()
 
