@@ -17,7 +17,7 @@ class Box:
         if self.status == "empty":
             self.color = "#e8e8e8"
         elif self.status == "correct":
-            self.color = "#00ff00"
+            self.color = "#02a102"
         elif self.status == "partial":
             self.color = "#ffa500"
         else:
