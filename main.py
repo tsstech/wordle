@@ -73,9 +73,11 @@ while not win and attempts < 6:
         if event.type == pygame.KEYDOWN:
             ## If a letter is clicked
             if event.unicode in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
-                guesses[currentWord][currentLetter].writeLetter(event.unicode)
                 if currentLetter < 4:
+                    guesses[currentWord][currentLetter].writeLetter(event.unicode)
                     currentLetter += 1
+                elif currentLetter == 4 and guesses[currentWord][currentLetter].letter == "":
+                    guesses[currentWord][currentLetter].writeLetter(event.unicode)
                 
             ## If backspace is clicked
             if event.key == pygame.K_BACKSPACE:
