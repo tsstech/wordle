@@ -7,7 +7,7 @@ import box_class, func
 pygame.init()
  
 ## create screen
-screen = pygame.display.set_mode((400,600))
+screen = pygame.display.set_mode((400,550))
 
 ## title
 pygame.display.set_caption("Wordle")
@@ -55,7 +55,7 @@ guesses = [[box_class.Box(55, 100, 50, 50),
             box_class.Box(295, 400, 50, 50)]]
 
 attempts = 0
-guessed = False
+win = False
 
 ## holds indexes for guesses variable
 currentWord = 0
@@ -64,7 +64,7 @@ currentLetter = 0
 
 
 ########## GAMELOOP ##########
-while not guessed and attempts < 6:
+while not win and attempts < 6:
 
     #### User controls ####
     for event in pygame.event.get():
@@ -104,7 +104,7 @@ while not guessed and attempts < 6:
                         letter.status = func.checkStatus(ind,letter.letter,word)
                         letter.changeColor()
                         
-                    guessed = func.checkIfCorrect(guesses[currentWord],word)
+                    win = func.checkIfCorrect(guesses[currentWord],word)
 
                     ## resetting index variables
                     currentWord += 1
@@ -114,6 +114,13 @@ while not guessed and attempts < 6:
     screen.fill("#ffffff")
     func.drawGuesses(screen,guesses)
     pygame.display.update()
+
+if win:
+    func.winMessage(screen)
+else:
+    func.loseMessage(screen,word)
+
+pygame.display.update()
 
 
 
