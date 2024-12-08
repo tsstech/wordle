@@ -1,5 +1,5 @@
-import pygame, random
-import box_class, func
+import pygame, random, sys
+import box_class, func, words
 
 ############# GAME SETUP #################
  
@@ -16,7 +16,7 @@ pygame.display.set_caption("Wordle")
 ######### CREATING BASIC VARIABLES ########
 
 ## generate a random word
-word = random.choice(["HELLO","GREAT","SANTA"])
+word = random.choice(words.dictionary).upper()
 
 guesses = [[box_class.Box(55, 100, 50, 50),
             box_class.Box(115, 100, 50, 50),
@@ -97,8 +97,9 @@ while not win and attempts < 6:
                         guesses[currentWord][currentLetter].deleteLetter()
 
             if event.key == pygame.K_RETURN:
+                guessedWord = guesses[currentWord][0].letter + guesses[currentWord][1].letter + guesses[currentWord][2].letter + guesses[currentWord][3].letter + guesses[currentWord][4].letter
                 ## if all letters in word are guessed
-                if currentLetter == 4 and guesses[currentWord][currentLetter].letter != "":
+                if guessedWord.lower() in words.dictionary:
                     attempts += 1
 
                     ## check & change status of letters
