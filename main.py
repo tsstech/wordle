@@ -1,5 +1,5 @@
 import pygame, random, sys
-import box_class, button_class, func, words
+import box_class, button_class, func
 
 ############# GAME SETUP #################
  
@@ -22,7 +22,7 @@ gameloop = True
 while gameloop:
 
     ## generate a random word
-    word = random.choice(words.dictionary).upper()
+    word = func.generateWord().upper()
 
     ## reset guesses grid
     guesses = func.resetGuesses()
@@ -70,7 +70,7 @@ while gameloop:
                 if event.key == pygame.K_RETURN:
                     guessedWord = guesses[currentWord][0].letter + guesses[currentWord][1].letter + guesses[currentWord][2].letter + guesses[currentWord][3].letter + guesses[currentWord][4].letter
                     ## if all letters in word are guessed
-                    if guessedWord.lower() in words.dictionary:
+                    if func.checkWordExists(guessedWord):
                         attempts += 1
 
                         ## check & change status of letters

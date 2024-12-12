@@ -1,4 +1,4 @@
-import pygame
+import pygame, requests
 import box_class
 
 
@@ -8,6 +8,17 @@ def checkIfCorrect(guess,word):
         if letter.letter != word[ind]:
             return False
     return True
+
+
+## checks if word exists in api
+def checkWordExists(word):
+    response = requests.get(f"https://api.datamuse.com/words?sp={word.lower()}&max=1")    ## make api request
+    data = response.json()  ## parse json response
+
+    if data:    ## if response is not empty (meaning word exists)
+        return True
+    else:
+        return False
 
 
 ## checks status of guessed letters in word
@@ -64,13 +75,21 @@ def drawGuesses(screen,guesses):
             letter.drawBox(screen)
 
 
-## drawws Wordle game title
+## draws Wordle game title
 def drawWordle(screen):
     font = pygame.font.Font(None,80)    ## create font object
     textSurface = font.render(f"Wordle",True,(0,0,0))   ## Render the text
     textRect = textSurface.get_rect()   ## Get rect object for text
     textRect.center = pygame.Rect(0,5,400,90).center ## Center text in the box
     screen.blit(textSurface,textRect)
+
+
+## generate random word using Data Muse API
+def generateWord():
+    response = requests.get("https://api.datamuse.com/words?sp=?????&max=1")    ## make api request
+    data = response.json()  ## parse json response
+    return data[0]["word"]  ## return the word
+
             
 ## draws losing message
 def loseMessage(screen,word):
