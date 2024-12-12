@@ -74,11 +74,20 @@ while gameloop:
                     if func.checkWordExists(guessedWord):
                         attempts += 1
 
+
                         ## check & change status of letters
                         for ind,letter in enumerate(guesses[currentWord]):
+                            ## letters in word grid
                             letter.status = func.checkStatus(ind,letter.letter,word)
                             letter.changeColor()
-                            
+
+                            ## letters on keyboard
+                            for rowNum, row in enumerate(keyboard):
+                                for keyNum, key in enumerate(row):
+                                    if letter.letter == key.letter:
+                                        key.changeColor(letter.status)
+
+                                        
                         win = func.checkIfCorrect(guesses[currentWord],word)
 
                         ## resetting index variables
@@ -94,6 +103,10 @@ while gameloop:
 
 
     ############# GAME OVER #############
+    screen.fill("#ffffff")
+    func.drawWordle(screen)
+    func.drawGuesses(screen,guesses)
+    
     ## Display win/lose message
         if win:
             func.winMessage(screen)
@@ -101,6 +114,7 @@ while gameloop:
             func.loseMessage(screen,word)
 
     playAgain = False
+    
             
 
     ######### PLAY AGAIN BUTTON ###########
@@ -116,7 +130,6 @@ while gameloop:
                     playAgain = True
                     attempts = 0
                     win = False
-                    print(playAgain)
 
         
 
