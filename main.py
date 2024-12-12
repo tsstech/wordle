@@ -1,20 +1,20 @@
 import pygame, random, sys
 import box_class, button_class, func
 
-############# GAME SETUP #################
+############# GAME  SETUP #################
  
 ## Initialize program
 pygame.init()
  
 ## create screen
-screen = pygame.display.set_mode((400,600))
+screen = pygame.display.set_mode((550,650))
 
 ## title
 pygame.display.set_caption("Wordle")
 
 
 ## play again button
-playAgainButton = button_class.Button(100, 530, 200, 55, 40, "Play Again", "#02a102")
+playAgainButton = button_class.Button(150, 530, 200, 55, 40, "Play Again", "#02a102")
 
 gameloop = True
 
@@ -24,8 +24,9 @@ while gameloop:
     ## generate a random word
     word = func.generateWord().upper()
 
-    ## reset guesses grid
+    ## reset guesses grid & keyboard
     guesses = func.resetGuesses()
+    keyboard = func.createKeyboard()
 
     ## holds indexes for guesses variable
     currentWord = 0
@@ -88,6 +89,7 @@ while gameloop:
         screen.fill("#ffffff")
         func.drawWordle(screen)
         func.drawGuesses(screen,guesses)
+        func.drawKeyboard(screen,keyboard)
         pygame.display.update()
 
 
