@@ -1,4 +1,4 @@
-import pygame, requests
+import pygame, requests, random
 import box_class, key_class
 
 
@@ -15,7 +15,7 @@ def checkWordExists(word):
     response = requests.get(f"https://api.datamuse.com/words?sp={word.lower()}&max=1")    ## make api request
     data = response.json()  ## parse json response
 
-    if data:    ## if response is not empty (meaning word exists)
+    if data[0]["word"].upper() == word:    ## if response is not empty (meaning word exists)
         return True
     else:
         return False
@@ -82,15 +82,15 @@ def drawWordle(screen):
     font = pygame.font.Font(None,80)    ## create font object
     textSurface = font.render(f"Wordle",True,(0,0,0))   ## Render the text
     textRect = textSurface.get_rect()   ## Get rect object for text
-    textRect.center = pygame.Rect(0,5,500,90).center ## Center text in the box
+    textRect.center = pygame.Rect(0,5,550,90).center ## Center text in the box
     screen.blit(textSurface,textRect)
 
 
 ## generate random word using Data Muse API
 def generateWord():
-    response = requests.get("https://api.datamuse.com/words?sp=?????&max=1")    ## make api request
+    response = requests.get("https://api.datamuse.com/words?sp=?????&max=1000")    ## make api request
     data = response.json()  ## parse json response
-    return data[0]["word"]  ## return the word
+    return random.choice([item['word'] for item in data])  ## return the word
 
             
 ## draws losing message
@@ -98,7 +98,7 @@ def loseMessage(screen,word):
     font = pygame.font.Font(None,50)    ## create font object
     textSurface = font.render(f"The word was {word.lower()}",True,(0,0,0))   ## Render the text
     textRect = textSurface.get_rect()   ## Get rect object for text
-    textRect.center = pygame.Rect(0,460,500,60).center ## Center text in the box
+    textRect.center = pygame.Rect(0,460,550,60).center ## Center text in the box
     screen.blit(textSurface,textRect)
 
 
@@ -146,7 +146,7 @@ def winMessage(screen):
     font = pygame.font.Font(None,50)    ## create font object
     textSurface = font.render("You Win!",True,(0,0,0))   ## Render the text
     textRect = textSurface.get_rect()   ## Get rect object for text
-    textRect.center = pygame.Rect(0,460,500,60).center ## Center text in the box
+    textRect.center = pygame.Rect(0,460,550,60).center ## Center text in the box
     screen.blit(textSurface,textRect)
 
 

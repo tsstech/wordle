@@ -14,7 +14,7 @@ pygame.display.set_caption("Wordle")
 
 
 ## play again button
-playAgainButton = button_class.Button(150, 530, 200, 55, 40, "Play Again", "#02a102")
+playAgainButton = button_class.Button(175, 530, 200, 55, 40, "Play Again", "#02a102")
 
 gameloop = True
 
@@ -108,10 +108,10 @@ while gameloop:
     func.drawGuesses(screen,guesses)
     
     ## Display win/lose message
-        if win:
-            func.winMessage(screen)
-        else:
-            func.loseMessage(screen,word)
+    if win:
+        func.winMessage(screen)
+    else:
+        func.loseMessage(screen,word)
 
     playAgain = False
     
