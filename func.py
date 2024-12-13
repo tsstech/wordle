@@ -15,7 +15,7 @@ def checkWordExists(word):
     response = requests.get(f"https://api.datamuse.com/words?sp={word.lower()}&max=1")    ## make api request
     data = response.json()  ## parse json response
 
-    if data[0]["word"].upper() == word:    ## if response is not empty (meaning word exists)
+    if data and data[0]["word"].upper() == word:    ## if response is not empty (meaning word exists)
         return True
     else:
         return False
