@@ -48,7 +48,7 @@ while gameloop:
                     if currentLetter < 4:
                         guesses[currentWord][currentLetter].writeLetter(event.unicode)
                         currentLetter += 1
-                    elif currentLetter == 4 and guesses[currentWord][currentLetter].letter == "":
+                    elif currentLetter == 4 and guesses[currentWord][currentLetter].getLetter() == "":
                         guesses[currentWord][currentLetter].writeLetter(event.unicode)
                     
                 ## If backspace is clicked
@@ -61,7 +61,7 @@ while gameloop:
                     ## if it is last letter
                     elif currentLetter == 4:
                         ## if box is empty, move to previous box and empty it
-                        if guesses[currentWord][currentLetter].letter == "":
+                        if guesses[currentWord][currentLetter].getLetter() == "":
                             currentLetter -= 1
                             guesses[currentWord][currentLetter].deleteLetter()
                         ## if box has a letter, just empty box and stay on box
@@ -69,7 +69,7 @@ while gameloop:
                             guesses[currentWord][currentLetter].deleteLetter()
 
                 if event.key == pygame.K_RETURN:
-                    guessedWord = guesses[currentWord][0].letter + guesses[currentWord][1].letter + guesses[currentWord][2].letter + guesses[currentWord][3].letter + guesses[currentWord][4].letter
+                    guessedWord = guesses[currentWord][0].getLetter() + guesses[currentWord][1].getLetter() + guesses[currentWord][2].getLetter() + guesses[currentWord][3].getLetter() + guesses[currentWord][4].getLetter()
                     ## if all letters in word are guessed
                     if func.checkWordExists(guessedWord):
                         attempts += 1
@@ -78,14 +78,14 @@ while gameloop:
                         ## check & change status of letters
                         for ind,letter in enumerate(guesses[currentWord]):
                             ## letters in word grid
-                            letter.status = func.checkStatus(ind,letter.letter,word)
+                            letter.changeStatus(ind,word)
                             letter.changeColor()
 
                             ## letters on keyboard
                             for rowNum, row in enumerate(keyboard):
                                 for keyNum, key in enumerate(row):
-                                    if letter.letter == key.letter:
-                                        key.changeColor(letter.status)
+                                    if letter.getLetter() == key.letter:
+                                        key.changeColor(letter.getStatus())
 
                                         
                         win = func.checkIfCorrect(guesses[currentWord],word)
@@ -144,4 +144,3 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-

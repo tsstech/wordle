@@ -5,7 +5,7 @@ import box_class, key_class
 ## checks if whole word is correct
 def checkIfCorrect(guess,word):
     for ind,letter in enumerate(guess):
-        if letter.letter != word[ind]:
+        if letter.getLetter() != word[ind]:
             return False
     return True
 
@@ -20,15 +20,6 @@ def checkWordExists(word):
     else:
         return False
 
-
-## checks status of guessed letters in word
-def checkStatus(ind,letter,word):
-    if letter == word[ind]:
-        return "correct"
-    elif letter in word:
-        return "partial"
-    else:
-        return "wrong"
 
 
 ## creates new keyboard
