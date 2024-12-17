@@ -84,7 +84,7 @@ while gameloop:
                             ## letters on keyboard
                             for rowNum, row in enumerate(keyboard):
                                 for keyNum, key in enumerate(row):
-                                    if letter.getLetter() == key.letter:
+                                    if letter.getLetter() == key.getLetter():
                                         key.changeColor(letter.getStatus())
 
                                         
