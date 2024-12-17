@@ -1,4 +1,4 @@
-import pygame, random, sys
+import pygame, random, sys, re
 import box_class, button_class, func
 
 ############# GAME  SETUP #################
@@ -44,7 +44,7 @@ while gameloop:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 ## If a letter is clicked
-                if event.unicode in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+                if re.match(r"^[a-zA-Z]$", event.unicode):
                     if currentLetter < 4:
                         guesses[currentWord][currentLetter].writeLetter(event.unicode)
                         currentLetter += 1
