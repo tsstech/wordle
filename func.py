@@ -79,9 +79,9 @@ def drawWordle(screen):
 
 ## generate random word using Data Muse API
 def generateWord():
-    response = requests.get("https://api.datamuse.com/words?sp=?????&max=1000")    ## make api request
+    response = requests.get("https://random-word-api.herokuapp.com/word?length=5")    ## make api request
     data = response.json()  ## parse json response
-    return random.choice([item['word'] for item in data])  ## return the word
+    return data[0]  ## return the word
 
             
 ## draws losing message
